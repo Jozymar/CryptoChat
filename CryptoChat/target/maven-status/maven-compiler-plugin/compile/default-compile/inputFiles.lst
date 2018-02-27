@@ -1,6 +1,6 @@
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/edu/controladores/ControladorDeBusca.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/edu/daos/UsuarioDao.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/edu/controladores/ControladorUsuario.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/edu/filtros/FiltroCryptoChat.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/edu/classes/Usuario.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/edu/controladores/ImageFile.java
+/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/daos/UsuarioDao.java
+/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/controladores/ControladorDeBusca.java
+/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/entidades/Usuario.java
+/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/controladores/ControladorUsuario.java
+/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/controladores/ImageFile.java
+/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/filtros/FiltroCryptoChat.java

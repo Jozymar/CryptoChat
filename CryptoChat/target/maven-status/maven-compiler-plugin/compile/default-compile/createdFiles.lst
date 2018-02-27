@@ -1,7 +1,7 @@
-com/ifpb/edu/controladores/ControladorDeBusca.class
-com/ifpb/edu/classes/Usuario.class
-com/ifpb/edu/filtros/FiltroCryptoChat.class
-com/ifpb/edu/controladores/ImageFile.class
-com/ifpb/edu/classes/Usuario_.class
-com/ifpb/edu/controladores/ControladorUsuario.class
-com/ifpb/edu/daos/UsuarioDao.class
+com/ifpb/cryptochat/entidades/Usuario_.class
+com/ifpb/cryptochat/daos/UsuarioDao.class
+com/ifpb/cryptochat/entidades/Usuario.class
+com/ifpb/cryptochat/controladores/ControladorUsuario.class
+com/ifpb/cryptochat/controladores/ImageFile.class
+com/ifpb/cryptochat/filtros/FiltroCryptoChat.class
+com/ifpb/cryptochat/controladores/ControladorDeBusca.class
