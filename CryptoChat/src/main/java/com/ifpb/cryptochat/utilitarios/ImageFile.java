@@ -1,4 +1,4 @@
-package com.ifpb.cryptochat.controladores;
+package com.ifpb.cryptochat.utilitarios;
 
 import java.io.IOException;
 import java.nio.file.Files;

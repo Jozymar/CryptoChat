@@ -19,7 +19,9 @@ public class ControladorDeBusca implements Serializable {
     private Usuario usuario = new Usuario();
 
     public String buscarUsuarioPorNickname() {
-        Usuario usuarioBuscado = usuarioDao.consultarPorNickname(usuario.getNickname());
+        Usuario usuarioBuscado = usuarioDao
+                .consultarPorNickname(usuario.getNickname());
+        
         if (usuarioBuscado != null) {
             usuario = usuarioBuscado;
             resultadoDaBusca = true;

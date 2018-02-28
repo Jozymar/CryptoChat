@@ -28,9 +28,11 @@ public class ControladorUsuario implements Serializable {
 
     public String cadastrar() throws IOException {
         if (usuarioDao.consultarPorEmail(usuario.getEmail()) != null) {
-            mensagemErro("Cadastro", "Já existe um usuário cadastrado com o e-mail informado!");
+            mensagemErro("Cadastro", "Já existe um usuário cadastrado "
+                    + "com o e-mail informado!");
         } else if (usuarioDao.consultarPorNickname(usuario.getNickname()) != null) {
-            mensagemErro("Cadastro", "Já existe um usuário cadastrado com o nickname informado!");
+            mensagemErro("Cadastro", "Já existe um usuário cadastrado "
+                    + "com o nickname informado!");
         } else {
 //            byte[] fotos = new ImageFile(foto.toString()).toBytes();
 //            usuario.setFoto(fotos);
@@ -46,16 +48,19 @@ public class ControladorUsuario implements Serializable {
 
     public String realizarlogin() {
         Usuario usuarioLogado = usuarioDao.consultarPorEmail(usuario.getEmail());
+
         if (usuarioLogado == null) {
             mensagemErro("Login", "O usuário informado não está cadastrado!");
             return null;
         } else {
-            Usuario usuarioAutenticavel = usuarioDao.autenticarUsuario(usuario.getEmail(), usuario.getSenha());
+            Usuario usuarioAutenticavel = usuarioDao
+                    .autenticarUsuario(usuario.getEmail(), usuario.getSenha());
             if (usuarioAutenticavel == null) {
                 mensagemErro("Login", "Os dados informados estão incorretos!");
                 return null;
             } else {
-                sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                sessao = (HttpSession) FacesContext.getCurrentInstance()
+                        .getExternalContext().getSession(true);
                 sessao.setAttribute("usuario", usuarioLogado);
                 sessao.setAttribute("nome", usuarioLogado.getNome());
                 sessao.setAttribute("foto", usuarioLogado.getFoto());
@@ -70,12 +75,14 @@ public class ControladorUsuario implements Serializable {
     }
 
     public String getNomeSession() {
-        sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        sessao = (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(true);
         return sessao.getAttribute("nome").toString();
     }
 
     public String getFotoSession() {
-        sessao = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        sessao = (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(true);
         return Base64.encode((byte[]) sessao.getAttribute("foto"));
     }
 
@@ -100,4 +107,5 @@ public class ControladorUsuario implements Serializable {
     public void setFoto(Part foto) {
         this.foto = foto;
     }
+
 }

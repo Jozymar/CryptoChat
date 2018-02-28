@@ -1,7 +1,11 @@
 com/ifpb/cryptochat/entidades/Usuario_.class
 com/ifpb/cryptochat/daos/UsuarioDao.class
 com/ifpb/cryptochat/entidades/Usuario.class
+com/ifpb/cryptochat/entidades/Mensagem.class
 com/ifpb/cryptochat/controladores/ControladorUsuario.class
-com/ifpb/cryptochat/controladores/ImageFile.class
+com/ifpb/cryptochat/utilitarios/PasswordProtected.class
+com/ifpb/cryptochat/entidades/Mensagem_.class
 com/ifpb/cryptochat/filtros/FiltroCryptoChat.class
+com/ifpb/cryptochat/interfaces/ProtectablePassword.class
 com/ifpb/cryptochat/controladores/ControladorDeBusca.class
+com/ifpb/cryptochat/utilitarios/ImageFile.class

@@ -20,13 +20,13 @@ public class Usuario implements Serializable {
     @Column(nullable = false, length = 80)
     private String nome;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, unique = true, length = 50)
     private String nickname;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 80, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 32)
     private String senha;
 
     @Lob
@@ -34,9 +34,11 @@ public class Usuario implements Serializable {
     private byte[] foto;
 
     public Usuario() {
+    
     }
 
-    public Usuario(int id, String nome, String nickname, String email, String senha, byte[] foto) {
+    public Usuario(int id, String nome, String nickname, String email,
+            String senha, byte[] foto) {
         this.id = id;
         this.nome = nome;
         this.nickname = nickname;
@@ -99,6 +101,8 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nome=" + nome + ", nickname=" + nickname + ", email=" + email + ", senha=" + senha + ", foto=" + foto + '}';
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", nickname="
+                + nickname + ", email=" + email + ", senha=" + senha
+                + ", foto=" + foto + '}';
     }
 }

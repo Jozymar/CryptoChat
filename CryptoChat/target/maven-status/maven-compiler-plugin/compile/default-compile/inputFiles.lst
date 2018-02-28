@@ -1,6 +1,9 @@
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/daos/UsuarioDao.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/controladores/ControladorDeBusca.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/entidades/Usuario.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/controladores/ControladorUsuario.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/controladores/ImageFile.java
-/home/jozimar/NetBeansProjects/CryptoChat/src/main/java/com/ifpb/cryptochat/filtros/FiltroCryptoChat.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/utilitarios/ImageFile.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/utilitarios/PasswordProtected.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/controladores/ControladorUsuario.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/filtros/FiltroCryptoChat.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/daos/UsuarioDao.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/entidades/Usuario.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/interfaces/ProtectablePassword.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/entidades/Mensagem.java
+/home/romulo/Área de Trabalho/seguranca-de-dados/AV 02/CryptoChat/CryptoChat/src/main/java/com/ifpb/cryptochat/controladores/ControladorDeBusca.java
