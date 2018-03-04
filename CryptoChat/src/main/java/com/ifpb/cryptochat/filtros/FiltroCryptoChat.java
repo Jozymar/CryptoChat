@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter(filterName = "filtroCryptoChat",
-        urlPatterns = {"/faces/mensagem.xhtml", "/mensagem.xhtml", "/pesquisa.xhtml"})
+        urlPatterns = {"/mensagem.xhtml", "/pesquisa.xhtml"})
 public class FiltroCryptoChat implements Filter {
 
     @Override

@@ -1,13 +1,16 @@
 package com.ifpb.cryptochat.daos;
 
 import com.ifpb.cryptochat.entidades.Usuario;
-import com.ifpb.cryptochat.interfaces.ProtectablePassword;
-import com.ifpb.cryptochat.utilitarios.PasswordProtected;
+import com.ifpb.cryptochat.interfaces.GeradorDeChavesImpl;
+import com.ifpb.cryptochat.utilitarios.ProtetorDeSenha;
 import java.util.Optional;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import com.ifpb.cryptochat.interfaces.ProtetorDeSenhaImpl;
+import com.ifpb.cryptochat.utilitarios.GeradorDeChaves;
+import java.security.NoSuchAlgorithmException;
 
 @Stateless
 public class UsuarioDao {
@@ -15,20 +18,22 @@ public class UsuarioDao {
     @PersistenceContext(unitName = "persistencia")
     EntityManager entityManager;
 
-    ProtectablePassword protectablePassword;
+    ProtetorDeSenhaImpl protectablePassword;
+    GeradorDeChavesImpl geradorDeChaves;
 
     public UsuarioDao() {
-        this.protectablePassword = new PasswordProtected();
+        this.protectablePassword = new ProtetorDeSenha();
+        this.geradorDeChaves = new GeradorDeChaves();
     }
 
-    public void cadastrar(Usuario usuario) {
+    public void cadastrar(Usuario usuario) throws NoSuchAlgorithmException {
         usuario.setSenha(protectablePassword
                 .getPasswordProtected(usuario.getSenha()));
+        usuario.setPublicKey(geradorDeChaves.getPublicKey());
         entityManager.persist(usuario);
     }
 
     public Usuario consultarPorNickname(String nickname) {
-
         TypedQuery<Usuario> query = entityManager
                 .createQuery("SELECT usuario FROM Usuario usuario "
                         + "WHERE usuario.nickname=:nickname", Usuario.class);
@@ -88,6 +93,10 @@ public class UsuarioDao {
             return null;
         }
 
+    }
+
+    public void atualizarUsuario(Usuario novoEstado) {
+        entityManager.merge(novoEstado);
     }
 
 }

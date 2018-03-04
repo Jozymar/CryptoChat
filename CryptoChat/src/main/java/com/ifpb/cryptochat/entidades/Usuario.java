@@ -2,6 +2,10 @@ package com.ifpb.cryptochat.entidades;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.Serializable;
+import java.security.PublicKey;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario implements Serializable {
@@ -33,18 +38,24 @@ public class Usuario implements Serializable {
     @Basic(fetch = FetchType.LAZY)
     private byte[] foto;
 
+    @OneToMany
+    private List<Mensagem> mensagens;
+
+    @Lob
+    private PublicKey publicKey;
+
     public Usuario() {
-    
+        this.mensagens = new ArrayList<>();
     }
 
-    public Usuario(int id, String nome, String nickname, String email,
-            String senha, byte[] foto) {
-        this.id = id;
+    public Usuario(String nome, String nickname, String email,
+            String senha, byte[] foto, PublicKey publicKey) {
         this.nome = nome;
         this.nickname = nickname;
         this.email = email;
         this.senha = senha;
         this.foto = foto;
+        this.publicKey = publicKey;
     }
 
     public int getId() {
@@ -99,10 +110,32 @@ public class Usuario implements Serializable {
         return Base64.encode(foto);
     }
 
+    public List<Mensagem> getMensagens() {
+        return mensagens;
+    }
+
+    public void setMensagem(List<Mensagem> mensagens) {
+        this.mensagens = mensagens;
+    }
+
+    public boolean addMensagem(Mensagem mensagem) {
+        return mensagens.add(mensagem);
+    }
+
+    public PublicKey getPublicKey() {
+        return publicKey;
+    }
+
+    public void setPublicKey(PublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" + "id=" + id + ", nome=" + nome + ", nickname="
                 + nickname + ", email=" + email + ", senha=" + senha
-                + ", foto=" + foto + '}';
+                + ", foto=" + Arrays.toString(foto) + ", mensagens=" + mensagens
+                + ", publicKey=" + publicKey + '}';
     }
+
 }

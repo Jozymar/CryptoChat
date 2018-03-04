@@ -7,16 +7,17 @@ As convesas serão encriptadas de forma à manter a informação íntegra e conf
 
 **O PROJETO FAZ USO DE:**
 > Criptografia assimétrica para as mensagens (chave pública e privada), de ponta a ponta.
+
 > Persistencia em bases de dados diferentes: duas instâncias do PostgreSQL.
-> Senha codigicada com "MD5" e armazenada como "String" formada pelo hexadecimal dos bytes.
+
+> Senha codigicada com ``MD5`` e armazenada como ``String`` formada pelo hexadecimal dos bytes.
+
 > Certificado digital para impedir interceptação de mensagem da saída do client-side ao server-side. 
 
 **Tecnologias usadas:**
-Back-End
-1. "Java Server Faces - JSF"
-2. "Java Persistence API -JPA"
-Front-End
-1. "HTML5"
-2. "CSS3"
-3. "JavaScript"
+1. ``Java Server Faces - JSF``
+2. ``Java Persistence API -JPA``
+3. ``HTML5``
+4. ``CSS3``
+5. ``JavaScript``
 

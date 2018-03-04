@@ -1,10 +1,13 @@
 package com.ifpb.cryptochat.controladores;
 
+import com.ifpb.cryptochat.daos.ChavePrivadaDao;
 import com.ifpb.cryptochat.entidades.Usuario;
 import com.ifpb.cryptochat.daos.UsuarioDao;
+import com.ifpb.cryptochat.entidades.ChavePrivada;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -21,12 +24,15 @@ public class ControladorUsuario implements Serializable {
 
     private Usuario usuario = new Usuario();
 
-    HttpSession sessao;
+    private HttpSession sessao;
 
     @EJB
     private UsuarioDao usuarioDao;
 
-    public String cadastrar() throws IOException {
+    @EJB
+    private ChavePrivadaDao chavePrivadaDao;
+
+    public String cadastrar() throws IOException, NoSuchAlgorithmException {
         if (usuarioDao.consultarPorEmail(usuario.getEmail()) != null) {
             mensagemErro("Cadastro", "Já existe um usuário cadastrado "
                     + "com o e-mail informado!");
@@ -34,13 +40,12 @@ public class ControladorUsuario implements Serializable {
             mensagemErro("Cadastro", "Já existe um usuário cadastrado "
                     + "com o nickname informado!");
         } else {
-//            byte[] fotos = new ImageFile(foto.toString()).toBytes();
-//            usuario.setFoto(fotos);
-
             byte[] arrayFoto = new byte[(int) foto.getSize()];
             foto.getInputStream().read(arrayFoto);
             usuario.setFoto(arrayFoto);
             usuarioDao.cadastrar(usuario);
+            ChavePrivada chavePrivada = new ChavePrivada(usuario.getId());
+            chavePrivadaDao.persistirChave(chavePrivada);
             return "login.xhtml";
         }
         return null;
