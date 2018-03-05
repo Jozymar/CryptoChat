@@ -32,22 +32,25 @@ public class ControladorMensagem implements Serializable {
     private Usuario remetente;
     private Usuario destinatario;
     private Mensagem mensagem;
+    private String mensagemUI;
     private boolean resultadoDaBusca;
-    private CriptografiaRSAImpl criptografiaRSA;
+    private CriptografiaRSA criptografiaRSA;
 
     @PostConstruct
     public void instanceObjects() {
+
         HttpSession sessao = (HttpSession) FacesContext.getCurrentInstance()
-                .getExternalContext().getSession(false);
+                .getExternalContext().getSession(true);
         this.remetente = (Usuario) sessao.getAttribute("usuario");
         this.destinatario = new Usuario();
         this.mensagem = new Mensagem();
         this.criptografiaRSA = new CriptografiaRSA();
     }
 
-    public String buscarUsuarioPorNickname() {
+    public String buscarUsuarioPorNickname() throws Exception {
         Usuario usuarioBuscado = usuarioDao
-                .consultarPorNickname(destinatario.getNickname());
+                .consultarPorNickname(destinatario.getNickname(), 
+                        remetente.getNickname());
 
         if (usuarioBuscado != null) {
             destinatario = usuarioBuscado;
@@ -57,19 +60,20 @@ public class ControladorMensagem implements Serializable {
             resultadoDaBusca = false;
             return "faces/pesquisa.xhtml";
         }
+        
     }
 
     public String enviarMensagem() throws Exception {
+
         //seta o remetente e o destinatario na mensagem
         mensagem.setRemetente(remetente);
         mensagem.setDestinatario(destinatario);
 
         //criptografa a mensagem
-        int idDestinatario = destinatario.getId();
-        PublicKey publicKeyDestinatrio = destinatario.getPublicKey();
-        byte[] mensagemParaCriptografia = mensagem.getCorpoMensagem();
-        mensagem.setCorpoMensagem(criptografiaRSA.
-                encriptarMensagem(mensagemParaCriptografia, publicKeyDestinatrio));
+        PublicKey chavePublicaDestinatrio = destinatario.getPublicKey();
+        byte[] mensagemParaCriptografia = criptografiaRSA
+                .encriptarMensagem(mensagemUI.getBytes(), chavePublicaDestinatrio);
+        mensagem.setCorpoMensagem(mensagemParaCriptografia);
 
         //Busca o usuário para atualização
         Usuario usuarioParaAtualizar = usuarioDao
@@ -81,17 +85,17 @@ public class ControladorMensagem implements Serializable {
         //Atualiza o usuario setando a mensagem
         usuarioDao.atualizarUsuario(usuarioParaAtualizar);
         mensagem = new Mensagem();
+        mensagemUI = null;
         return null;
     }
 
-    public List<String> getHistoricoMensagensPlano() throws Exception {
-        List<byte[]> mensagensEncriptadas = mensagemDao
-                .getHistoricoIndividualEncriptadoUsuario(remetente, destinatario);
+    public List<String> historicoMensagensPlano() throws Exception {
         PrivateKey chavePrivada = chavePrivadaDao
-                .getChavePrivadaUsuario(destinatario.getId());
-        List<String> mensagensDesencriptadas = mensagemDao
-                .getHistoricoIndividualDesencriptadoUsuario(mensagensEncriptadas, chavePrivada);
-        return mensagensDesencriptadas;
+                .getChavePrivadaUsuario(remetente.getId()).getChavePrivada();
+
+        List<String> retorno = mensagemDao.getHistoricoIndividualDesencriptadoUsuario(
+                remetente, destinatario, chavePrivada);
+        return retorno;
     }
 
     public Usuario getDestinatario() {
@@ -140,6 +144,30 @@ public class ControladorMensagem implements Serializable {
 
     public void setMensagemDao(MensagemDao mensagemDao) {
         this.mensagemDao = mensagemDao;
+    }
+
+    public ChavePrivadaDao getChavePrivadaDao() {
+        return chavePrivadaDao;
+    }
+
+    public void setChavePrivadaDao(ChavePrivadaDao chavePrivadaDao) {
+        this.chavePrivadaDao = chavePrivadaDao;
+    }
+
+    public CriptografiaRSA getCriptografiaRSA() {
+        return criptografiaRSA;
+    }
+
+    public void setCriptografiaRSA(CriptografiaRSA criptografiaRSA) {
+        this.criptografiaRSA = criptografiaRSA;
+    }
+
+    public String getMensagemUI() {
+        return mensagemUI;
+    }
+
+    public void setMensagemUI(String mensagemUI) {
+        this.mensagemUI = mensagemUI;
     }
 
 }

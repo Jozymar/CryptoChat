@@ -4,7 +4,7 @@
     <jta-data-source>java:app/persistencia.cryptochat</jta-data-source>
     <class>com.ifpb.cryptochat.entidades.Mensagem</class>
     <class>com.ifpb.cryptochat.entidades.Usuario</class>
-    <class>com.ifpb.cryptochat.conversores.StringToArrayByte</class>
+    <!--<class>com.ifpb.cryptochat.conversores.ConverterStringToArrayByte</class>-->
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>

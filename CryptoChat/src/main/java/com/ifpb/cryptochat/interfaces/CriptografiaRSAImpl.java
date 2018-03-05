@@ -26,6 +26,6 @@ public interface CriptografiaRSAImpl {
      * @return
      * @throws Exception
      */
-    public String desencriptarMensagem(byte[] mensagem, PrivateKey chavePrivada)
+    public byte[] desencriptarMensagem(byte[] mensagem, PrivateKey chavePrivada)
             throws Exception;
 }

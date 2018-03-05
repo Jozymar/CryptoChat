@@ -1,10 +1,11 @@
 package com.ifpb.cryptochat.entidades;
 
-import com.ifpb.cryptochat.conversores.StringToArrayByte;
 import java.io.Serializable;
+import java.util.Arrays;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -20,6 +21,7 @@ public class Mensagem implements Serializable {
 
     @Lob
     @Column(nullable = false)
+    @Basic(fetch = FetchType.EAGER)
     private byte[] corpoMensagem;
 
     @OneToOne
@@ -75,9 +77,8 @@ public class Mensagem implements Serializable {
 
     @Override
     public String toString() {
-        return "Mensagem{" + "id=" + id + ", corpoMensagem=" + corpoMensagem
-                + ", remetente=" + remetente + ", destinatario="
-                + destinatario + '}';
+        return "Mensagem{" + "id=" + id + ", corpoMensagem=" + Arrays.toString(corpoMensagem)
+                + ", remetente=" + remetente + ", destinatario=" + destinatario + '}';
     }
 
 }

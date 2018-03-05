@@ -4,9 +4,11 @@ import com.ifpb.cryptochat.daos.ChavePrivadaDao;
 import com.ifpb.cryptochat.entidades.Usuario;
 import com.ifpb.cryptochat.daos.UsuarioDao;
 import com.ifpb.cryptochat.entidades.ChavePrivada;
+import com.ifpb.cryptochat.utilitarios.GeradorDeChaves;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.io.Serializable;
+import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -43,9 +45,19 @@ public class ControladorUsuario implements Serializable {
             byte[] arrayFoto = new byte[(int) foto.getSize()];
             foto.getInputStream().read(arrayFoto);
             usuario.setFoto(arrayFoto);
+
+            KeyPair parChaves = GeradorDeChaves.gerarChaves();
+            //seta chave publica no usuario
+            usuario.setPublicKey(parChaves.getPublic());
+            //persisite o usuario no banco
             usuarioDao.cadastrar(usuario);
-            ChavePrivada chavePrivada = new ChavePrivada(usuario.getId());
+
+            //adiciona o id do usuario e a chave privada
+            ChavePrivada chavePrivada = new ChavePrivada(
+                    parChaves.getPrivate(), usuario.getId());
+            //persiste a entidade ChavePrivada no banco
             chavePrivadaDao.persistirChave(chavePrivada);
+
             return "login.xhtml";
         }
         return null;
@@ -53,7 +65,6 @@ public class ControladorUsuario implements Serializable {
 
     public String realizarlogin() {
         Usuario usuarioLogado = usuarioDao.consultarPorEmail(usuario.getEmail());
-
         if (usuarioLogado == null) {
             mensagemErro("Login", "O usuário informado não está cadastrado!");
             return null;

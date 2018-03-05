@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.ifpb.cryptochat.conversores;
 
 import java.nio.charset.StandardCharsets;
@@ -6,8 +11,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@FacesConverter("convert.ArrayByte")
-public class StringToArrayByte implements Converter {
+@FacesConverter(value = "convertTo.ArrayByte")
+public class ConverterStringToArrayByte implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -24,5 +29,4 @@ public class StringToArrayByte implements Converter {
         }
         return new String((byte[]) value, StandardCharsets.UTF_8);
     }
-    
 }
