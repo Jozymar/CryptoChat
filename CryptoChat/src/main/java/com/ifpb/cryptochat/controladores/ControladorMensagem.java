@@ -1,5 +1,6 @@
 package com.ifpb.cryptochat.controladores;
 
+import com.ifpb.cryptochat.entidades.ChavePrivada;
 import com.ifpb.cryptochat.entidades.Usuario;
 import com.ifpb.cryptochat.entidades.Mensagem;
 import com.ifpb.cryptochat.interfaces.ChavePrivadaDao;
@@ -7,7 +8,6 @@ import com.ifpb.cryptochat.interfaces.MensagemDao;
 import com.ifpb.cryptochat.interfaces.UsuarioDao;
 import com.ifpb.cryptochat.utilitarios.CriptografiaRSA;
 import java.io.Serializable;
-import java.security.PrivateKey;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -106,10 +106,13 @@ public class ControladorMensagem implements Serializable {
     }
 
     public List<String> historicoMensagensPlano() throws Exception {
-        PrivateKey chavePrivada = chavePrivadaDao
-                .getChavePrivadaUsuario(remetente.getId()).getChavePrivada();
-        return mensagemDao.getHistoricoIndividualDesencriptadoUsuario(
-                remetente, destinatario, chavePrivada);
+        ChavePrivada chavePrivadaRem = chavePrivadaDao
+                .getChavePrivadaUsuario(remetente.getId());
+        ChavePrivada chavePrivadaDest = chavePrivadaDao
+                .getChavePrivadaUsuario(destinatario.getId());
+
+        return mensagemDao.getHistoricoConversas(remetente, destinatario,
+                chavePrivadaRem, chavePrivadaDest);
     }
 
     public Usuario getDestinatario() {

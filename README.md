@@ -12,7 +12,7 @@ As convesas serão encriptadas de forma à manter a informação íntegra e conf
 
 > Senha codificada com ``MD5`` e armazenada como ``String`` formada pelo hexadecimal dos bytes.
 
-> Certificado digital assinado por entidade certificadora - enbutido no servidor - acessado na porta 8081, para impedir interceptação de mensagem da saída do client-side ao server-side. 
+> Certificado digital assinado por entidade certificadora - enbutido no servidor - acessado na porta 8081 pelo Docker, para impedir interceptação de mensagem da saída do client-side ao server-side. 
 
 **Tecnologias usadas:**
 1. ``Java Server Faces - JSF``
