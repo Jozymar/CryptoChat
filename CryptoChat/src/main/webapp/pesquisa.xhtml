@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:jsf="http://xmlns.jcp.org/jsf">
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Pesquisa</title>
     </h:head>
@@ -41,14 +42,39 @@
                         </div>
                     </div>
                 </h:form>
+
+                <div class="col s12" align="center" style="margin: 2% 0% 0% 0%">
+                    <h5>Contatos</h5>
+                </div>
+
+                <h:dataTable value="#{controladorMensagem.listarUsuarios(controladorMensagem.remetente.nickname)}" var="users">
+                    <h:column>
+                        <f:facet name="header">Nome</f:facet>
+                        <h:outputText value="#{users.nome}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Nickname</f:facet>
+                        <h:outputText value="#{users.nickname}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">E-mail</f:facet>
+                        <h:outputText value="#{users.email}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Mensagem</f:facet>
+                        <h:form>
+                            <h:commandLink action="#{controladorMensagem.buscarUsuarioNickname(users.nickname)}">Enviar</h:commandLink>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+
                 <div class="row" style="min-height: 360px;">
 
-                    <div class="col s8 push-m2" jsf:rendered="#{controladorMensagem.resultadoDaBusca != false}" style="margin: 2% 0% 0% 0%;">
-                        <div class="col s10" style="width: 50%;">
+                    <div class="col s8 push-m4" jsf:rendered="#{controladorMensagem.resultadoDaBusca != false}" style="margin: 2% 0% 0% 0%;">
+                        <div class="col s10" style="width: 45%;">
                             <div class="card">
-                                <div class="card-image">
-                                    <h:graphicImage alt="Perfil" value="data:image/jpeg;base64,#{controladorMensagem.destinatario.fotoBase64()}"/>
-                                    <span class="card-title">#{controladorMensagem.destinatario.nome}</span>
+                                <div class="card-image" align="center">
+                                    <h:graphicImage style="max-height: 170px; max-width: 70%" alt="Perfil" value="data:image/jpeg;base64,#{controladorMensagem.destinatario.fotoBase64()}"/>
                                 </div>
                                 <div class="card-content">
                                     <p>Nickname: #{controladorMensagem.destinatario.nickname}</p>

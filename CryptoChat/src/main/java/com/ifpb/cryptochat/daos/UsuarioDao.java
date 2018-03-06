@@ -9,6 +9,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import com.ifpb.cryptochat.interfaces.ProtetorDeSenhaImpl;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 public class UsuarioDao {
@@ -39,7 +41,7 @@ public class UsuarioDao {
             return null;
         }
     }
-    
+
     public Usuario consultarPorNickname(String nickname, String nicknameSessao) {
         TypedQuery<Usuario> query = entityManager
                 .createQuery("SELECT usuario FROM Usuario usuario "
@@ -100,4 +102,21 @@ public class UsuarioDao {
         entityManager.merge(novoEstado);
     }
 
+    public List<Usuario> listarUsuarios(String nickname) {
+
+        TypedQuery<Usuario> query = entityManager
+                .createQuery("SELECT usuario FROM Usuario usuario "
+                        + "WHERE usuario.nickname<>:nickname", Usuario.class);
+        query.setParameter("nickname", nickname);
+        List<Usuario> usuarios = query.getResultList();
+        if (usuarios == null) {
+            return new ArrayList<>();
+        }
+        List<Usuario> users = new ArrayList<>();
+        for (Usuario user : usuarios) {
+            users.add(user);
+
+        }
+        return users;
+    }
 }

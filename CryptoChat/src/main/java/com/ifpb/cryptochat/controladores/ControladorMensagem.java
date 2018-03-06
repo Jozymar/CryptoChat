@@ -49,7 +49,7 @@ public class ControladorMensagem implements Serializable {
 
     public String buscarUsuarioPorNickname() throws Exception {
         Usuario usuarioBuscado = usuarioDao
-                .consultarPorNickname(destinatario.getNickname(), 
+                .consultarPorNickname(destinatario.getNickname(),
                         remetente.getNickname());
 
         if (usuarioBuscado != null) {
@@ -60,7 +60,23 @@ public class ControladorMensagem implements Serializable {
             resultadoDaBusca = false;
             return "faces/pesquisa.xhtml";
         }
-        
+
+    }
+
+    public String buscarUsuarioNickname(String nickname) throws Exception {
+        Usuario usuarioBuscado = usuarioDao
+                .consultarPorNickname(nickname,
+                        remetente.getNickname());
+        if (usuarioBuscado != null) {
+            destinatario = usuarioBuscado;
+            return "faces/mensagem.xhtml";
+        }
+        return null;
+    }
+
+    public List<Usuario> listarUsuarios(String nickname) throws Exception {
+        return usuarioDao.listarUsuarios(nickname);
+
     }
 
     public String enviarMensagem() throws Exception {
