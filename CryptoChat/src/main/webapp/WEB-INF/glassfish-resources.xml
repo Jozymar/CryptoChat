@@ -5,7 +5,7 @@
 <!--        <property name="serverName" value="host-postgres"/>
         <property name="databaseName" value="cryptochat"/>-->
         <property name="User" value="postgres"/>
-        <property name="Password" value="deus"/>
+        <property name="Password" value="postgres"/>
         <property name="URL" value="jdbc:postgresql://localhost:5432/cryptochat"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>
@@ -14,7 +14,7 @@
 <!--        <property name="serverName" value="host-postgreschave"/>
         <property name="databaseName" value="database-private-key-cryptochat"/>-->
         <property name="User" value="postgres"/>
-        <property name="Password" value="deus"/>
+        <property name="Password" value="postgres"/>
         <property name="URL" value="jdbc:postgresql://localhost:5432/database-private-key-cryptochat"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>

@@ -1,15 +1,16 @@
 package com.ifpb.cryptochat.controladores;
 
-import com.ifpb.cryptochat.daos.ChavePrivadaDao;
 import com.ifpb.cryptochat.entidades.Usuario;
-import com.ifpb.cryptochat.daos.UsuarioDao;
 import com.ifpb.cryptochat.entidades.ChavePrivada;
+import com.ifpb.cryptochat.interfaces.ChavePrivadaDao;
+import com.ifpb.cryptochat.interfaces.UsuarioDao;
 import com.ifpb.cryptochat.utilitarios.GeradorDeChaves;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -23,16 +24,18 @@ import javax.servlet.http.Part;
 public class ControladorUsuario implements Serializable {
 
     private Part foto;
-
-    private Usuario usuario = new Usuario();
-
+    private Usuario usuario;
     private HttpSession sessao;
 
     @EJB
     private UsuarioDao usuarioDao;
-
     @EJB
     private ChavePrivadaDao chavePrivadaDao;
+
+    @PostConstruct
+    public void instanceObjects() {
+        this.usuario = new Usuario();
+    }
 
     public String cadastrar() throws IOException, NoSuchAlgorithmException {
         if (usuarioDao.consultarPorEmail(usuario.getEmail()) != null) {

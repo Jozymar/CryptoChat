@@ -1,15 +1,13 @@
 package com.ifpb.cryptochat.controladores;
 
-import com.ifpb.cryptochat.daos.ChavePrivadaDao;
-import com.ifpb.cryptochat.daos.MensagemDao;
 import com.ifpb.cryptochat.entidades.Usuario;
-import com.ifpb.cryptochat.daos.UsuarioDao;
 import com.ifpb.cryptochat.entidades.Mensagem;
-import com.ifpb.cryptochat.interfaces.CriptografiaRSAImpl;
+import com.ifpb.cryptochat.interfaces.ChavePrivadaDao;
+import com.ifpb.cryptochat.interfaces.MensagemDao;
+import com.ifpb.cryptochat.interfaces.UsuarioDao;
 import com.ifpb.cryptochat.utilitarios.CriptografiaRSA;
 import java.io.Serializable;
 import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -51,7 +49,6 @@ public class ControladorMensagem implements Serializable {
         Usuario usuarioBuscado = usuarioDao
                 .consultarPorNickname(destinatario.getNickname(),
                         remetente.getNickname());
-
         if (usuarioBuscado != null) {
             destinatario = usuarioBuscado;
             resultadoDaBusca = true;
@@ -88,22 +85,21 @@ public class ControladorMensagem implements Serializable {
         //seta o remetente e o destinatario na mensagem
         mensagem.setRemetente(remetente);
         mensagem.setDestinatario(destinatario);
-
-        //criptografa a mensagem
-        PublicKey chavePublicaDestinatrio = destinatario.getPublicKey();
-        byte[] mensagemParaCriptografia = criptografiaRSA
-                .encriptarMensagem(mensagemUI.getBytes(), chavePublicaDestinatrio);
-        mensagem.setCorpoMensagem(mensagemParaCriptografia);
+        mensagem.setCorpoMensagem(mensagemUI.getBytes());
 
         //Busca o usuário para atualização
         Usuario usuarioParaAtualizar = usuarioDao
                 .consultarPorEmail(remetente.getEmail());
+
         //Seta mensagem no usuario buscado
         usuarioParaAtualizar.addMensagem(mensagem);
+
         //Envia a mensagem
-        mensagemDao.enviarMensagem(mensagem);
+        mensagemDao.enviarMensagem(mensagem, destinatario.getPublicKey());
+
         //Atualiza o usuario setando a mensagem
         usuarioDao.atualizarUsuario(usuarioParaAtualizar);
+
         mensagem = new Mensagem();
         mensagemUI = null;
         return null;
@@ -112,10 +108,8 @@ public class ControladorMensagem implements Serializable {
     public List<String> historicoMensagensPlano() throws Exception {
         PrivateKey chavePrivada = chavePrivadaDao
                 .getChavePrivadaUsuario(remetente.getId()).getChavePrivada();
-
-        List<String> retorno = mensagemDao.getHistoricoIndividualDesencriptadoUsuario(
+        return mensagemDao.getHistoricoIndividualDesencriptadoUsuario(
                 remetente, destinatario, chavePrivada);
-        return retorno;
     }
 
     public Usuario getDestinatario() {
@@ -148,38 +142,6 @@ public class ControladorMensagem implements Serializable {
 
     public void setRemetente(Usuario remetente) {
         this.remetente = remetente;
-    }
-
-    public UsuarioDao getUsuarioDao() {
-        return usuarioDao;
-    }
-
-    public void setUsuarioDao(UsuarioDao usuarioDao) {
-        this.usuarioDao = usuarioDao;
-    }
-
-    public MensagemDao getMensagemDao() {
-        return mensagemDao;
-    }
-
-    public void setMensagemDao(MensagemDao mensagemDao) {
-        this.mensagemDao = mensagemDao;
-    }
-
-    public ChavePrivadaDao getChavePrivadaDao() {
-        return chavePrivadaDao;
-    }
-
-    public void setChavePrivadaDao(ChavePrivadaDao chavePrivadaDao) {
-        this.chavePrivadaDao = chavePrivadaDao;
-    }
-
-    public CriptografiaRSA getCriptografiaRSA() {
-        return criptografiaRSA;
-    }
-
-    public void setCriptografiaRSA(CriptografiaRSA criptografiaRSA) {
-        this.criptografiaRSA = criptografiaRSA;
     }
 
     public String getMensagemUI() {

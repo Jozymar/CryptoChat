@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class ChavePrivada implements Serializable {
@@ -13,11 +14,12 @@ public class ChavePrivada implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-
+    
+    @Lob
     @Column(nullable = false)
     private PrivateKey chavePrivada;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private int idUsuario;
 
     public ChavePrivada() {
