@@ -74,6 +74,10 @@ public class ControladorMensagem implements Serializable {
         return null;
     }
 
+    public String retornaFoto() {
+        return destinatario.fotoBase64();
+    }
+
     public List<Usuario> listarUsuarios(String nickname) throws Exception {
         return usuarioDao.listarUsuarios(nickname);
 

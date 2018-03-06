@@ -92,6 +92,6 @@
                 </executions>
             </plugin>
         </plugins>
-        <finalName>CryptoChat</finalName>
+        <finalName>cryptochat</finalName>
     </build>
 </project>

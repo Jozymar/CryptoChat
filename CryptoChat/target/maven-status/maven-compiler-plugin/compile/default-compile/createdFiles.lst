@@ -18,4 +18,3 @@ com/ifpb/cryptochat/entidades/ChavePrivada_.class
 com/ifpb/cryptochat/interfaces/ProtetorDeSenhaImpl.class
 com/ifpb/cryptochat/daos/ChavePrivadaDao.class
 com/ifpb/cryptochat/utilitarios/GeradorDeChaves.class
-com/ifpb/cryptochat/utilitarios/ImageFile.class
