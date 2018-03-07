@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Mensagem implements Serializable {
@@ -23,6 +24,9 @@ public class Mensagem implements Serializable {
     @Column(nullable = false)
     @Basic(fetch = FetchType.EAGER)
     private byte[] corpoMensagem;
+
+    @Transient
+    private String corpoMensagemPlano;
 
     @OneToOne
     @JoinColumn(nullable = false)
@@ -75,10 +79,21 @@ public class Mensagem implements Serializable {
         this.destinatario = destinatario;
     }
 
+    public String getCorpoMensagemPlano() {
+        return corpoMensagemPlano;
+    }
+
+    public void setCorpoMensagemPlano(String corpoMensagemPlano) {
+        this.corpoMensagemPlano = corpoMensagemPlano;
+    }
+
     @Override
     public String toString() {
-        return "Mensagem{" + "id=" + id + ", corpoMensagem=" + Arrays.toString(corpoMensagem)
-                + ", remetente=" + remetente + ", destinatario=" + destinatario + '}';
+        return "Mensagem{" + "id=" + id + ", corpoMensagem="
+                + Arrays.toString(corpoMensagem) + ", corpoMensagemPlano="
+                + corpoMensagemPlano + ", remetente="
+                + remetente + ", destinatario="
+                + destinatario + '}';
     }
 
 }

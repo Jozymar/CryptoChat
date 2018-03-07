@@ -10,7 +10,6 @@
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
-  
   <persistence-unit name="database-for-private-key" transaction-type="JTA">
     <jta-data-source>java:app/database-for-private-key.cryptochat</jta-data-source>
     <class>com.ifpb.cryptochat.entidades.ChavePrivada</class>

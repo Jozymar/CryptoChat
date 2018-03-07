@@ -10,11 +10,7 @@ public interface MensagemDao {
 
     public void enviarMensagem(Mensagem mensagem, PublicKey chavePublicaDestinatario);
 
-//    public List<String> getHistoricoIndividualDesencriptadoUsuario(
-//            Usuario remetente, Usuario destinatario, PrivateKey chavePrivada)
-//            throws Exception;
-    
-    public List<String> getHistoricoConversas(Usuario remetente,
+    public List<Mensagem> getHistoricoMensagens(Usuario remetente,
             Usuario destinatario, ChavePrivada chavePrivadaRem,
             ChavePrivada chavePrivadaDest)
             throws Exception;

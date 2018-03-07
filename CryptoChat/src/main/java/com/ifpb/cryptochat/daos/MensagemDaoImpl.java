@@ -34,35 +34,8 @@ public class MensagemDaoImpl implements MensagemDao {
         entityManager.persist(mensagem);
     }
 
-//    @Override
-//    public List<String> getHistoricoIndividualDesencriptadoUsuario(
-//            Usuario remetente, Usuario destinatario, PrivateKey chavePrivada)
-//            throws Exception {
-//        String querySql = "SELECT m.corpoMensagem FROM Mensagem m "
-//                + "WHERE m.remetente= :dest AND m.destinatario= :rem";
-//
-//        TypedQuery<byte[]> createQuery = entityManager
-//                .createQuery(querySql, byte[].class);
-//        createQuery.setParameter("rem", remetente);
-//        createQuery.setParameter("dest", destinatario);
-//
-//        List<byte[]> mensagensEncriptadas = createQuery.getResultList();
-//        if (mensagensEncriptadas == null) {
-//            return new ArrayList<>();
-//        }
-//
-//        List<String> mensagensDesencriptadas = new ArrayList<>();
-//        for (byte[] mensagem : mensagensEncriptadas) {
-//            byte[] msgDesencriptada = CriptografiaRSA.
-//                    desencriptarMensagem(mensagem, chavePrivada);
-//            String mensagemDesencriptada = new String(msgDesencriptada);
-//            mensagensDesencriptadas.add(mensagemDesencriptada);
-//        }
-//        return mensagensDesencriptadas;
-//    }
-
     @Override
-    public List<String> getHistoricoConversas(Usuario remetente,
+    public List<Mensagem> getHistoricoMensagens(Usuario remetente,
             Usuario destinatario, ChavePrivada chavePrivadaRem,
             ChavePrivada chavePrivadaDest)
             throws Exception {
@@ -82,23 +55,21 @@ public class MensagemDaoImpl implements MensagemDao {
             return new ArrayList<>();
         }
 
-        List<String> mensagensDesencriptadas = new ArrayList<>();
-
         for (Mensagem mensagem : mensagens) {
-            String mensagemDesencriptada;
+            String corpoMensagemPlano;
             if (mensagem.getDestinatario().getId() == chavePrivadaRem.getId()) {
-                mensagemDesencriptada = new String(CriptografiaRSA
+                corpoMensagemPlano = new String(CriptografiaRSA
                         .desencriptarMensagem(mensagem.getCorpoMensagem(),
                                 chavePrivadaRem.getChavePrivada()));
             } else {
-                mensagemDesencriptada = new String(CriptografiaRSA
+                corpoMensagemPlano = new String(CriptografiaRSA
                         .desencriptarMensagem(mensagem.getCorpoMensagem(),
                                 chavePrivadaDest.getChavePrivada()));
+                
             }
-            mensagensDesencriptadas.add(mensagemDesencriptada);
-
+            mensagem.setCorpoMensagemPlano(corpoMensagemPlano);
         }
-        return mensagensDesencriptadas;
+        return mensagens;
     }
 
 }

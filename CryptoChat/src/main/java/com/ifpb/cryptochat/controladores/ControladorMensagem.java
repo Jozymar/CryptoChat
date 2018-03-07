@@ -71,8 +71,8 @@ public class ControladorMensagem implements Serializable {
         return null;
     }
 
-    public String retornaFoto() {
-        return destinatario.fotoBase64();
+    public String retornarFoto(Usuario usuario) {
+        return usuario.fotoBase64();
     }
 
     public List<Usuario> listarUsuarios(String nickname) throws Exception {
@@ -105,13 +105,13 @@ public class ControladorMensagem implements Serializable {
         return null;
     }
 
-    public List<String> historicoMensagensPlano() throws Exception {
+    public List<Mensagem> historicoMensagensPlano() throws Exception {
         ChavePrivada chavePrivadaRem = chavePrivadaDao
                 .getChavePrivadaUsuario(remetente.getId());
         ChavePrivada chavePrivadaDest = chavePrivadaDao
                 .getChavePrivadaUsuario(destinatario.getId());
 
-        return mensagemDao.getHistoricoConversas(remetente, destinatario,
+        return mensagemDao.getHistoricoMensagens(remetente, destinatario,
                 chavePrivadaRem, chavePrivadaDest);
     }
 

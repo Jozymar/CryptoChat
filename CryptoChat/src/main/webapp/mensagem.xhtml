@@ -9,7 +9,6 @@
         <title>Mensagem</title>
     </h:head>
     <h:body>
-
         <ui:composition template="/template.xhtml">
             <ui:define name="navbar">
                 <nav class="blue-grey">
@@ -25,35 +24,24 @@
                     </div>
                 </nav>
             </ui:define>
-
             <ui:define name="conteudo">
                 <div class="col s12" align="center" style="margin: 2% 0% 0% 0%">
                     <h:graphicImage width="18%" height="160px" alt="Perfil" value="data:image/jpeg;base64,#{controladorUsuario.getFotoSession()}" class="rounded" style="border-radius: 4%"/>
                 </div>
-
                 <div class="row">
-
                     <div class="col s6 offset-s3" style="border-style: solid; border-radius: 4%; border-width: 1px; border-color: #90a4ae; overflow-x: auto; height: 300px;">
                         <h:dataTable value="#{controladorMensagem.historicoMensagensPlano()}" var="msg" border="3">
                             <h:column>
                                 <div class="col s12">
                                     <div class="card-panel teal" style="border-radius: 3%">
-                                        <!--<span class="white-text"><h:graphicImage width="11%" height="40px" alt="Perfil" value="data:image/jpeg;base64,#{controladorMensagem.retornaFoto()}" class="circle"/></span>-->
-                                        <span class="white-text">#{msg}</span>
+                                        <span class="white-text"><h:graphicImage width="11%" height="40px" alt="Perfil" value="data:image/jpeg;base64,#{controladorMensagem.retornarFoto(msg.remetente)}" class="circle"/> </span>
+                                        <span class="white-text">#{msg.remetente.nome}>: </span>
+                                        <span class="white-text">#{msg.corpoMensagemPlano}</span>
                                     </div>
                                 </div>
                             </h:column>
                         </h:dataTable>
-
-                        <!--                        <div class="col s12">
-                                                    <div class="card-panel blue" style="border-radius: 3%">
-                                                        <span class="white-text">I am a very simple card. I am good at containing small bits of information.
-                                                            I am convenient because I require little markup to use effectively. I am similar to what is called a panel in other frameworks.
-                                                        </span>
-                                                    </div>
-                                                </div>-->
                     </div>
-
                     <div class="col s6 offset-s3">
                         <div class="col s12">
                             <h:form>
@@ -68,7 +56,6 @@
                 </div>
             </ui:define>
         </ui:composition>
-
     </h:body>
 </html>
 
