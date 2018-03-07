@@ -1,0 +1,19 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.background-responsive img {
+    width: 100%;
+    opacity: 0.5;
+}
+
+.background-responsive {
+    position: relative;
+}
+
+.text-background-responsive {
+    position: absolute;
+    top: 35%;
+}

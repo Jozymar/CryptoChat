@@ -5,7 +5,6 @@ import com.ifpb.cryptochat.entidades.ChavePrivada;
 import com.ifpb.cryptochat.interfaces.ChavePrivadaDao;
 import com.ifpb.cryptochat.interfaces.UsuarioDao;
 import com.ifpb.cryptochat.utilitarios.GeradorDeChaves;
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.KeyPair;
@@ -97,12 +96,6 @@ public class ControladorUsuario implements Serializable {
         sessao = (HttpSession) FacesContext.getCurrentInstance()
                 .getExternalContext().getSession(true);
         return sessao.getAttribute("nome").toString();
-    }
-
-    public String getFotoSession() {
-        sessao = (HttpSession) FacesContext.getCurrentInstance()
-                .getExternalContext().getSession(true);
-        return Base64.encode((byte[]) sessao.getAttribute("foto"));
     }
 
     public void mensagemErro(String tituloPagina, String conteudo) {
