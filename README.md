@@ -24,6 +24,8 @@ As convesas serão encriptadas de forma à manter a informação íntegra e conf
 
 **Instruções para Implantação** 
 
+Pré-requisitos: ``Docker`` - ``Payara 4 ^ Embarcado``
+
 > 1. Execute o arquivo ``Shell script`` ``sh`` **run.sh** no terminal para implantação e execução dos containers no ``Docker``
 
 > 2. Espere o processo de construção e execução das imagens e dos containers
